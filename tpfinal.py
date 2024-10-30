@@ -105,7 +105,7 @@ def validarCantLikes(cantLikes):
     else:
         raise Exception("La cantidad de likes debe ser mayor o igual a cero.")
 
-class Cancion():
+class Cancion:
     def __init__(self, nombre:str, artista:str, duracion:Tiempo, generoMusical:str, anio:int, cantLikes:int):
         self.nombre = validarNombre(nombre)
         self.artista = validarArtista(artista)
@@ -114,31 +114,31 @@ class Cancion():
         self.anio = validarAnio(anio)
         self.cantLikes = validarCantLikes(cantLikes)
 
-    def getNombre(self):
+    def getNombre(self) -> str:
         return self.nombre
     
-    def getArtista(self):
+    def getArtista(self) -> str:
         return self.artista
     
-    def getDuracion(self):
+    def getDuracion(self) -> Tiempo:
         return self.duracion
     
-    def getGeneroMusical(self):
+    def getGeneroMusical(self) -> str:
         return self.generoMusical
     
-    def getAnio(self):
+    def getAnio(self) -> int:
         return self.anio
     
-    def getCantLikes(self):
+    def getCantLikes(self) -> int:
         return self.cantLikes
 
     def __str__(self):
-        return f"{self.nombre()} - {self.artista()} ({self.duracion()})"
+        return f"{self.nombre} - {self.artista} ({self.duracion})"
     
     def mayorDuracion(cancion1, cancion2):
         return cancion1 if tiempoASegundos( cancion1.getDuracion() ) > tiempoASegundos( cancion2.getDuracion() ) else cancion2
     
-    def agregaLikes(self, cantidad):
+    def agregaLikes(self, cantidad:int):
         self.cantLikes += cantidad
 
     def validarMismoArtista(cancion1, cancion2):
@@ -170,3 +170,32 @@ def esNarcisista(numero:int)->bool:
         suma += int(aux[digito]) ** len(aux)     #cada digito del numero es elevado a la cantidad de digitos y sumado al acumulado en la sumatoria
     return suma == numero                        #realizo la verificacion si la sumatoria obtenida es igual al numero recibido
 
+#Corrección de errores
+
+#valores esperados
+#Lista ordenada: [2, 3, 5, 6, 7, 8]
+#Números pares en orden descendente: [8, 6, 2]
+#Números impares en orden descendente: [7, 5, 3]
+
+def separar_ordenar_pares_impares(lista):
+    # Ordenar la lista en orden ascendente
+    lista_ordenada = sorted(lista)
+    print("Lista ordenada:", lista_ordenada)
+
+    # Separar en números pares e impares
+    pares = [num for num in lista_ordenada if num % 2 == 0]
+    #impares = [num for num in lista_ordenada if num / 2 != 0]
+    impares = [num for num in lista_ordenada if num % 2 != 0] #error de logica debe ser modulo(%) y no division(/)
+
+    # Ordenar ambas listas en orden descendente
+    pares_desc = sorted(pares, reverse=True)
+    #impares_desc = sorted(inpares, reverse=True)
+    impares_desc = sorted(impares, reverse=True) #habia un error de tipeo, estaba escrito inpares
+
+    print("Números pares en orden descendente:", pares_desc)
+    print("Números impares en orden descendente:", impares_desc)
+    
+# Prueba
+#lista = (5, 3, 8, 6, 7, 2)
+lista = [5, 3, 8, 6, 7, 2] #error de tipo de dato se debia enviar una lista[] y no una tupla()
+separar_ordenar_pares_impares(lista)
